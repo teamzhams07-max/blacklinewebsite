@@ -98,17 +98,7 @@ export default function Footer() {
           <img
             src="/images/logo-full.png"
             alt="BLACK LINE Detailing Studio"
-            style={{ width: 'clamp(220px, 34vw, 420px)', height: 'auto', display: 'block', margin: '0 auto 28px', userSelect: 'none' }}
-          />
-          <div
-            style={{
-              width: 'clamp(100px, 30vw, 300px)',
-              height: 3,
-              background: 'var(--red)',
-              margin: '0 auto',
-              transform: 'skewY(-1.5deg)',
-              boxShadow: '0 0 16px var(--red-glow)',
-            }}
+            style={{ width: 'clamp(220px, 34vw, 420px)', height: 'auto', display: 'block', margin: '0 auto 8px', userSelect: 'none' }}
           />
           <p className="label" style={{ marginTop: 16, fontSize: 12 }}>
             {site.tagline}

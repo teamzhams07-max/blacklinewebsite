@@ -51,21 +51,29 @@ export default function Contact() {
     return () => ctx.revert();
   }, []);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const form = e.currentTarget;
-    const formData = new FormData(form);
-    formData.append('form-name', 'contact');
+const [sending, setSending] = useState(false);
+const [error, setError] = useState('');
 
-    fetch('/', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: new URLSearchParams(formData as any).toString(),
-    })
-      .then(() => setSubmitted(true))
-      .catch(() => setSubmitted(true)); // Still show success for demo
-  };
-
+const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  e.preventDefault();
+  const fd = new FormData(e.currentTarget);
+  if (fd.get('bot-field')) return; // spam trap
+  fd.append('access_key', import.meta.env.VITE_WEB3FORMS_KEY);
+  fd.append('subject', 'New enquiry from BLACK LINE website');
+  fd.append('from_name', 'BLACK LINE Website');
+  setSending(true);
+  setError('');
+  try {
+    const res = await fetch('https://api.web3forms.com/submit', { method: 'POST', body: fd });
+    const data = await res.json();
+    if (!data.success) throw new Error(data.message);
+    setSubmitted(true);
+  } catch {
+    setError('Sorry, something went wrong. Please WhatsApp us instead.');
+  } finally {
+    setSending(false);
+  }
+};
   return (
     <section id="contact" ref={rootRef} className="section" style={{ background: 'var(--surface)' }}>
       <HexMesh opacity={0.3} fade="right" />

@@ -74,15 +74,11 @@ export default function Header() {
           }}
         >
           <a href="#hero" onClick={closeMenu} aria-label="Blackline Detailing Studio home" style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-            <img src="/images/logo-mark.png" alt="Blackline Detailing Studio" style={{ height: 44, width: 'auto', objectFit: 'contain' }} />
-            <div style={{ display: 'flex', flexDirection: 'column' }}>
-              <span style={{ fontFamily: 'var(--font-display)', fontSize: 18, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em', lineHeight: 1, color: 'var(--text)' }}>
-                BLACK <span style={{ color: 'var(--red)' }}>LINE</span>
-              </span>
-              <span style={{ fontFamily: 'var(--font-display)', fontSize: 8, fontWeight: 500, textTransform: 'uppercase', letterSpacing: '0.3em', color: 'var(--muted)', marginTop: 2 }}>
-                Detailing Studio
-              </span>
-            </div>
+            <img
+              src="/images/logo-horizontal.png"
+              alt="BLACK LINE Detailing Studio"
+              style={{ height: 'clamp(30px, 9vw, 50px)', width: 'auto', display: 'block' }}
+            />
           </a>
 
           {/* Desktop nav */}

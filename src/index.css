@@ -641,3 +641,12 @@ select:focus-visible {
 @media (prefers-reduced-motion: reduce) {
   .hero-slide { transition: none; }
 }
+/* Floating socials: stay clear of the page content on laptop-width screens */
+@media (min-width: 769px) and (max-width: 1600px) {
+  .floating-socials { left: 4px; gap: 8px; }
+  .fs-btn { width: 36px; height: 36px; }
+  .fs-btn svg { width: 19px; height: 19px; }
+  .fs-rating { width: 36px; padding: 5px 0 4px; border-radius: 10px; }
+  .fs-rating-score { font-size: 11px; }
+  .fs-rating-stars svg { width: 6px; height: 6px; }
+}
