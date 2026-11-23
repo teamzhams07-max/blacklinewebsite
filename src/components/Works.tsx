@@ -146,7 +146,7 @@ export default function Works() {
               {work.hasSlider && work.beforeImage && work.afterImage ? (
                 <BeforeAfterSlider beforeSrc={work.beforeImage} afterSrc={work.afterImage} />
               ) : (
-                <SmartImage src={work.image} alt={`${work.title} — detailed by BLACK LINE`} />
+                <SmartImage src={work.image} alt={`${work.title} — detailed by BLACK LINE`} position={work.position} />
               )}
 
               {/* Hover overlay */}
@@ -194,9 +194,8 @@ export default function Works() {
             onClick={(e) => e.stopPropagation()}
             className="chamfer"
             style={{
-              width: '100%',
-              maxWidth: 900,
-              height: '70vh',
+              width: 'min(92vw, calc(86vh * 9 / 16))',
+              aspectRatio: '9 / 16',
               position: 'relative',
               background: 'var(--surface-2)',
             }}

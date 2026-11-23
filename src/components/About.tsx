@@ -151,7 +151,7 @@ export default function About() {
               className="about-image-wrap chamfer"
               style={{ height: 360, background: 'var(--surface-2)' }}
             >
-              <SmartImage src={about.image} alt="BLACK LINE detailing studio" />
+              <SmartImage src={about.image} alt="BLACK LINE detailing studio" position={about.imagePosition} />
             </div>
 
             <div className="about-counters" style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 24 }}>

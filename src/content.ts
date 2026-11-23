@@ -13,7 +13,8 @@ export const site = {
 };
 
 export const about = {
-  image: '/images/wrx-grey.jpg',
+  image: '/images/xuv700-white.jpg',
+  imagePosition: 'center 62%',
   story:
     'BLACK LINE was founded on a simple obsession: every vehicle deserves to look better than the day it left the showroom. What started as a one-bay workshop has grown into a full-fledged detailing, protection, and customization studio — but the philosophy hasn\u2019t changed. We treat every car as if it\u2019s our own, because the difference between clean and flawless is measured in microns.',
   counters: [
@@ -48,17 +49,23 @@ export type Work = {
   title: string;
   services: string[];
   image: string;
+  position?: string; // CSS object-position, to keep the car in frame
   hasSlider: boolean;
   beforeImage?: string;
   afterImage?: string;
 };
 
 export const works: Work[] = [
-  { id: 'w1', title: 'Toyota GR Supra — Liberty Walk', services: ['Paint Correction', 'Ceramic Coating'], image: '/images/supra.jpg', hasSlider: false },
-  { id: 'w2', title: 'Porsche 911 GT Collection', services: ['PPF', 'Exterior Detailing'], image: '/images/porsche.jpg', hasSlider: false },
-  { id: 'w3', title: 'Subaru WRX STI — Gunmetal', services: ['Ceramic Coating', 'Headlight Restoration'], image: '/images/wrx-grey.jpg', hasSlider: false },
-  { id: 'w4', title: 'Subaru WRX STI — Gloss Black', services: ['Paint Correction', 'Modifications'], image: '/images/wrx-black.jpg', hasSlider: false },
-  { id: 'w5', title: 'Subaru Impreza WRX — Pearl White', services: ['Exterior Detailing', 'Foam Wash'], image: '/images/impreza-white.jpg', hasSlider: false },
+  { id: 'w1', title: 'Mahindra XUV700 — Midnight Black', services: ['Paint Correction', 'Ceramic Coating'], image: '/images/xuv700-black.jpg', position: 'center 88%', hasSlider: false },
+  { id: 'w2', title: 'Toyota Hilux — Gloss Black', services: ['Ceramic Coating', 'Sun Film'], image: '/images/hilux-black.jpg', position: 'center 92%', hasSlider: false },
+  { id: 'w3', title: 'Mercedes-Benz CLA — Obsidian', services: ['Paint Correction', 'Windshield Coating'], image: '/images/cla-black.jpg', position: 'center 62%', hasSlider: false },
+  { id: 'w4', title: 'Hyundai i20 N Line — Black & Red', services: ['PPF', 'Modifications'], image: '/images/i20-nline-black.jpg', position: 'center 82%', hasSlider: false },
+  { id: 'w5', title: 'Mahindra XUV700 — Pearl White', services: ['Foam Wash', 'Exterior Detailing'], image: '/images/xuv700-white.jpg', position: 'center 62%', hasSlider: false },
+  { id: 'w6', title: 'Honda Elevate — Platinum White', services: ['Exterior Detailing', 'PPF'], image: '/images/elevate-white.jpg', position: 'center 84%', hasSlider: false },
+  { id: 'w7', title: 'Toyota Rumion — Silver', services: ['Headlight Restoration', 'Foam Wash'], image: '/images/rumion-silver.jpg', position: 'center 80%', hasSlider: false },
+  { id: 'w8', title: 'Hyundai i20 — Black Hood Edition', services: ['Vinyl Wrapping', 'Modifications'], image: '/images/i20-white.jpg', position: 'center 58%', hasSlider: false },
+  { id: 'w9', title: 'Honda — Gloss Black', services: ['Paint Correction', 'Headlight Restoration'], image: '/images/honda-black.jpg', position: 'center 86%', hasSlider: false },
+  { id: 'w10', title: 'Kia — Gloss Black', services: ['Ceramic Coating', 'Vinyl Wrapping'], image: '/images/kia-black.jpg', position: 'center 70%', hasSlider: false },
 ];
 
 export const process = [
@@ -133,15 +140,16 @@ export const nav = [
   { label: 'Contact', href: '#contact' },
 ];
 
-export const heroImage = '/images/supra.jpg';
+export const heroImage = '/images/hilux-black.jpg';
 
 // Home page hero: images that slide through the 3 frames (left / centre / right), one by one.
 // Add or remove entries freely (works best with 4+). The 2nd entry starts in the centre.
 export const heroSlides = [
-  { src: '/images/wrx-grey.jpg', alt: 'Subaru WRX STI in the BLACK LINE workshop', position: 'center 60%' },
-  { src: '/images/supra.jpg', alt: 'Toyota GR Supra detailed by BLACK LINE', position: 'center 55%' },
-  { src: '/images/impreza-white.jpg', alt: 'Subaru Impreza WRX in pearl white', position: 'center 62%' },
-  { src: '/images/porsche.jpg', alt: 'Porsche 911 GT collection', position: 'center 55%' },
-  { src: '/images/wrx-black.jpg', alt: 'Subaru WRX STI with the hood open', position: 'center 38%' },
+  { src: '/images/i20-white.jpg', alt: 'Hyundai i20 with black hood, detailed by BLACK LINE', position: 'center 63%' },
+  { src: '/images/xuv700-black.jpg', alt: 'Mahindra XUV700 in gloss black', position: 'center 85%' },
+  { src: '/images/hilux-black.jpg', alt: 'Toyota Hilux in gloss black', position: 'center 78%' },
+  { src: '/images/xuv700-white.jpg', alt: 'Mahindra XUV700 in pearl white at the BLACK LINE studio', position: 'center 65%' },
+  { src: '/images/cla-black.jpg', alt: 'Mercedes-Benz CLA with a mirror-gloss finish', position: 'center 68%' },
+  { src: '/images/i20-nline-black.jpg', alt: 'Hyundai i20 N Line in black with red accents', position: 'center 80%' },
 ];
-export const heroSlideInterval = 4500; // ms between moves
+export const heroSlideInterval = 2600; // ms between moves

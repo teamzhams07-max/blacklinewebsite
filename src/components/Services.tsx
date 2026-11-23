@@ -208,12 +208,12 @@ export default function Services() {
                       <div className="service-gallery">
                         {images.length > 0 ? (
                           images.map((src, n) => (
-                            <div key={src} className="chamfer" style={{ aspectRatio: '4 / 3', background: 'var(--surface-2)' }}>
-                              <SmartImage src={src} alt={`${service.name} — photo ${n + 1}`} />
+                            <div key={src} className="chamfer" style={{ aspectRatio: '3 / 4', background: 'var(--surface-2)' }}>
+                              <SmartImage src={src} alt={`${service.name} — photo ${n + 1}`} position="center 80%" />
                             </div>
                           ))
                         ) : (
-                          <div className="chamfer" style={{ aspectRatio: '4 / 3', background: 'var(--surface-2)' }}>
+                          <div className="chamfer" style={{ aspectRatio: '3 / 4', background: 'var(--surface-2)' }}>
                             <SmartImage src="" alt={`${service.name} — photos coming soon`} />
                           </div>
                         )}
@@ -230,8 +230,8 @@ export default function Services() {
       <style>{`
         .service-gallery {
           display: grid;
-          grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-          gap: 16px;
+          grid-template-columns: repeat(auto-fit, minmax(260px, 340px));
+          gap: 20px;
         }
         @media (max-width: 768px) {
           .service-row {

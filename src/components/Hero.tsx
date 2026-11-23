@@ -84,16 +84,6 @@ export default function Hero() {
       <HexMesh fade="right" style={{ right: 0, width: '20%' }} opacity={0.4} />
 
       <div className="hero3-inner">
-        {/* Tagline */}
-        <div className="hero-fade-up hero3-tagline">
-          {site.tagline.split(' | ').map((part, i) => (
-            <span key={i} style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
-              {i > 0 && <span style={{ width: 24, height: 1, background: 'var(--red)' }} />}
-              <span className="label">{part}</span>
-            </span>
-          ))}
-        </div>
-
         {/* Sliding images */}
         <div
           className="hero-row"
@@ -129,6 +119,16 @@ export default function Hero() {
               />
             ))}
           </div>
+        </div>
+
+        {/* Tagline */}
+        <div className="hero-fade-up hero3-tagline">
+          {site.tagline.split(' | ').map((part, i) => (
+            <span key={i} style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+              {i > 0 && <span style={{ width: 24, height: 1, background: 'var(--red)' }} />}
+              <span className="label">{part}</span>
+            </span>
+          ))}
         </div>
 
         {/* Headline */}
