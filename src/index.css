@@ -650,3 +650,13 @@ select:focus-visible {
   .fs-rating-score { font-size: 11px; }
   .fs-rating-stars svg { width: 6px; height: 6px; }
 }
+/* Footer credit link */
+.credit-link {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-family: var(--font-display); font-size: 20px; font-weight: 700; letter-spacing: 0.06em;
+  color: var(--text); border-bottom: 2px solid var(--red); padding-bottom: 1px;
+  transition: color 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+}
+.credit-link:hover { color: var(--red); transform: translateY(-1px); }
+.credit-link svg { transition: transform 0.25s ease; }
+.credit-link:hover svg { transform: translate(2px, -2px); }

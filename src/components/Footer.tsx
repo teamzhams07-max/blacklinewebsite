@@ -121,8 +121,19 @@ export default function Footer() {
             <p style={{ color: 'var(--muted)', fontSize: 13 }}>
               &copy; {new Date().getFullYear()} BLACK LINE Detailing Studio. All rights reserved.
             </p>
-            <p style={{ color: 'var(--muted)', fontSize: 12, letterSpacing: '0.04em' }}>
-              Built and maintained by <span style={{ color: 'var(--text)', fontWeight: 600 }}>Z-Hams</span>
+            <p style={{ color: 'var(--muted)', fontSize: 13, letterSpacing: '0.04em', display: 'flex', alignItems: 'center', gap: 6, flexWrap: 'wrap' }}>
+              Built and maintained by{' '}
+              <a
+                href="https://zhams.vercel.app"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="credit-link"
+              >
+                Z-Hams
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M4 10l6-6M5 4h5v5" />
+                </svg>
+              </a>
             </p>
           </div>
           <button
