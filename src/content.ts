@@ -110,7 +110,7 @@ export const contact = {
   phones: ['+91 99403 31994', '+91 88258 02692', '+91 97909 95708'],
   whatsappNumber: '919940331994',
   whatsappDisplay: '+91 99403 31994',
-  email: 'info@blackline.detailing',
+  email: 'Blacklinedetailing3@gmail.com',
   instagram: 'blackline.detailing__',
   instagramUrl: 'https://instagram.com/blackline.detailing__',
   address: '1st Main Rd, Poompuhar Nagar, Kolathur, Chennai, Tamil Nadu 600099',

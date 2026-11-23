@@ -7,12 +7,13 @@ type Props = {
   as?: 'a' | 'button' | 'div';
   href?: string;
   onClick?: () => void;
+  disabled?: boolean;
 };
 
 /**
  * Magnetic button wrapper — the element subtly follows the cursor.
  */
-export default function MagneticButton({ children, className = '', strength = 0.3, as = 'button', href, onClick }: Props) {
+export default function MagneticButton({ children, className = '', strength = 0.3, as = 'button', href, onClick, disabled }: Props) {
   const ref = useRef<HTMLElement>(null);
 
   const handleMove = (e: React.MouseEvent) => {
@@ -53,7 +54,8 @@ export default function MagneticButton({ children, className = '', strength = 0.
       onMouseMove={handleMove}
       onMouseLeave={handleLeave}
       onClick={onClick}
-      style={{ transition: 'transform 0.3s cubic-bezier(0.16,1,0.3,1)' }}
+      disabled={disabled}
+      style={{ transition: 'transform 0.3s cubic-bezier(0.16,1,0.3,1)', opacity: disabled ? 0.6 : 1, cursor: disabled ? 'not-allowed' : undefined }}
     >
       {children}
     </button>

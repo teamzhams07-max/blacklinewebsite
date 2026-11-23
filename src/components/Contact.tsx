@@ -11,6 +11,7 @@ gsap.registerPlugin(ScrollTrigger);
 export default function Contact() {
   const rootRef = useRef<HTMLElement>(null);
   const [submitted, setSubmitted] = useState(false);
+  const [waText, setWaText] = useState('');
 
   useEffect(() => {
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -51,29 +52,41 @@ export default function Contact() {
     return () => ctx.revert();
   }, []);
 
-const [sending, setSending] = useState(false);
-const [error, setError] = useState('');
+  const [sending, setSending] = useState(false);
+  const [error, setError] = useState('');
 
-const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-  e.preventDefault();
-  const fd = new FormData(e.currentTarget);
-  if (fd.get('bot-field')) return; // spam trap
-  fd.append('access_key', import.meta.env.VITE_WEB3FORMS_KEY);
-  fd.append('subject', 'New enquiry from BLACK LINE website');
-  fd.append('from_name', 'BLACK LINE Website');
-  setSending(true);
-  setError('');
-  try {
-    const res = await fetch('https://api.web3forms.com/submit', { method: 'POST', body: fd });
-    const data = await res.json();
-    if (!data.success) throw new Error(data.message);
-    setSubmitted(true);
-  } catch {
-    setError('Sorry, something went wrong. Please WhatsApp us instead.');
-  } finally {
-    setSending(false);
-  }
-};
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const fd = new FormData(e.currentTarget);
+    if (fd.get('bot-field')) return; // spam trap
+    fd.delete('bot-field');
+    fd.delete('form-name');
+    fd.append('access_key', import.meta.env.VITE_WEB3FORMS_KEY as string);
+    fd.append('subject', 'New enquiry from BLACK LINE website');
+    fd.append('from_name', 'BLACK LINE Website');
+
+    // Pre-written WhatsApp message with the same details (used on the success screen)
+    const g = (k: string) => String(fd.get(k) || '-');
+    setWaText(
+      `Hi BLACK LINE, I just sent an enquiry from your website.\n` +
+        `Name: ${g('name')}\nPhone: ${g('phone')}\nCar: ${g('car')}\n` +
+        `Service: ${g('service')}\nMessage: ${g('message')}`,
+    );
+
+    setSending(true);
+    setError('');
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', { method: 'POST', body: fd });
+      const data = await res.json();
+      if (!data.success) throw new Error(data.message);
+      setSubmitted(true);
+    } catch {
+      setError('Sorry, something went wrong. Please WhatsApp or call us instead.');
+    } finally {
+      setSending(false);
+    }
+  };
+
   return (
     <section id="contact" ref={rootRef} className="section" style={{ background: 'var(--surface)' }}>
       <HexMesh opacity={0.3} fade="right" />
@@ -115,25 +128,28 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
                 <p style={{ color: 'var(--muted)' }}>
                   We'll get back to you within 24 hours. For urgent enquiries, call or WhatsApp us directly.
                 </p>
-                <button
-                  onClick={() => setSubmitted(false)}
-                  className="btn btn-ghost"
-                  style={{ marginTop: 24 }}
-                >
-                  <span className="sweep" />
-                  Send Another
-                </button>
+                <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap', marginTop: 24 }}>
+                  <a
+                    href={`https://wa.me/${contact.whatsappNumber}?text=${encodeURIComponent(waText)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn btn-primary"
+                  >
+                    <span className="sweep" />
+                    Also send on WhatsApp
+                  </a>
+                  <button onClick={() => setSubmitted(false)} className="btn btn-ghost">
+                    <span className="sweep" />
+                    Send Another
+                  </button>
+                </div>
               </div>
             ) : (
               <form
                 name="contact"
-                method="POST"
-                data-netlify="true"
-                netlify-honeypot="bot-field"
                 onSubmit={handleSubmit}
                 style={{ display: 'flex', flexDirection: 'column', gap: 20 }}
               >
-                <input type="hidden" name="form-name" value="contact" />
                 <p style={{ display: 'none' }}>
                   <label>
                     Don't fill this out: <input name="bot-field" />
@@ -196,9 +212,15 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
                   />
                 </div>
 
-                <MagneticButton as="button" className="btn btn-primary" strength={0.15}>
+                {error && (
+                  <p role="alert" style={{ color: 'var(--red)', fontSize: 14, lineHeight: 1.5 }}>
+                    {error}
+                  </p>
+                )}
+
+                <MagneticButton as="button" className="btn btn-primary" strength={0.15} disabled={sending}>
                   <span className="sweep" />
-                  Send Message
+                  {sending ? 'Sending…' : 'Send Message'}
                   <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M3 8h10M8 3l5 5-5 5" />
                   </svg>
