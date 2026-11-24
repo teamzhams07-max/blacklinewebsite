@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { services } from '@/content';
-import { getServiceImages } from '@/serviceImages';
+import { getServiceImages, getServiceCard } from '@/serviceImages';
 import ServiceIcon from './ServiceIcon';
 import SmartImage from './SmartImage';
 
@@ -12,6 +12,15 @@ export default function Services() {
   const rootRef = useRef<HTMLElement>(null);
   const [hovered, setHovered] = useState<number | null>(null);
   const [open, setOpen] = useState<number | null>(null);
+  const [zoom, setZoom] = useState<{ src: string; alt: string } | null>(null);
+
+  // Close the full-size card with Esc
+  useEffect(() => {
+    if (!zoom) return;
+    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setZoom(null);
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [zoom]);
 
   useEffect(() => {
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -76,6 +85,7 @@ export default function Services() {
             const isOpen = open === i;
             const highlighted = isOpen || hovered === i;
             const images = getServiceImages(service.id);
+            const card = getServiceCard(service.id);
             const panelId = `service-panel-${service.id}`;
 
             return (
@@ -205,6 +215,19 @@ export default function Services() {
                         {service.description}
                       </p>
 
+                      {card && (
+                        <button
+                          type="button"
+                          className="service-card-btn"
+                          tabIndex={isOpen ? 0 : -1}
+                          onClick={() => setZoom({ src: card, alt: `${service.name} — service card` })}
+                          aria-label={`View the ${service.name} service card full size`}
+                        >
+                          <img src={card} alt={`${service.name} — service card`} loading="lazy" decoding="async" />
+                          <span className="service-card-hint">Tap to enlarge</span>
+                        </button>
+                      )}
+
                       <div className="service-gallery">
                         {images.length > 0 ? (
                           images.map((src, n) => (
@@ -227,7 +250,52 @@ export default function Services() {
         </div>
       </div>
 
+      {zoom && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label={zoom.alt}
+          className="service-zoom"
+          onClick={() => setZoom(null)}
+        >
+          <button type="button" className="service-zoom-close" onClick={() => setZoom(null)} aria-label="Close">
+            ✕
+          </button>
+          <img src={zoom.src} alt={zoom.alt} onClick={(e) => e.stopPropagation()} />
+        </div>
+      )}
+
       <style>{`
+        .service-card-btn {
+          position: relative;
+          display: block;
+          width: 100%;
+          max-width: 620px;
+          margin: 0 0 28px;
+          padding: 0;
+          border: 1px solid var(--line);
+          background: var(--surface-2);
+          cursor: zoom-in;
+          overflow: hidden;
+          transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .service-card-btn:hover { border-color: var(--red); box-shadow: 0 0 24px var(--red-glow); }
+        .service-card-btn img { display: block; width: 100%; height: auto; }
+        .service-card-hint {
+          position: absolute; right: 12px; bottom: 12px;
+          padding: 6px 10px; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
+          background: rgba(10,10,11,0.8); color: var(--text); border: 1px solid var(--line);
+        }
+        .service-zoom {
+          position: fixed; inset: 0; z-index: 1000;
+          display: flex; align-items: center; justify-content: center;
+          padding: 24px; background: rgba(0,0,0,0.92); cursor: zoom-out; overflow: auto;
+        }
+        .service-zoom img { max-width: min(96vw, 1200px); max-height: 94vh; width: auto; height: auto; object-fit: contain; cursor: default; }
+        .service-zoom-close {
+          position: fixed; top: 16px; right: 16px; width: 44px; height: 44px;
+          color: var(--text); border: 1px solid var(--line); background: rgba(10,10,11,0.8); font-size: 18px; cursor: pointer;
+        }
         .service-gallery {
           display: grid;
           grid-template-columns: repeat(auto-fit, minmax(260px, 340px));
