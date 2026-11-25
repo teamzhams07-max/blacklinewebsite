@@ -114,7 +114,7 @@ export const reviews = [
 ];
 
 export const contact = {
-  phones: ['+91 99403 31994', '+91 88258 02692', '+91 97909 95708'],
+  phones: ['+91 88258 02692', '+91 99403 31994', '+91 97909 95708'],
   whatsappNumber: '919940331994',
   whatsappDisplay: '+91 99403 31994',
   email: 'Blacklinedetailing3@gmail.com',
