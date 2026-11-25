@@ -556,7 +556,7 @@ select:focus-visible {
 .hero-edge-left { left: 0; background: linear-gradient(to right, var(--bg), transparent); }
 .hero-edge-right { right: 0; background: linear-gradient(to left, var(--bg), transparent); }
 
-/* red lines: frame edges + a line running out to both sides */
+/* red lines: centre frame edges only */
 .hero-lines {
   position: absolute;
   inset: 0;
@@ -576,17 +576,7 @@ select:focus-visible {
   opacity: 0.85;
   z-index: 4;
 }
-.hero-lines::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 72%;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--red) 12%, var(--red) 88%, transparent);
-  box-shadow: 0 0 10px var(--red-glow);
-  opacity: 0.8;
-}
+
 
 /* progress dots, centred on the frame */
 .hero-dots {
@@ -638,7 +628,6 @@ select:focus-visible {
     height: calc(clamp(190px, 30vh, 280px) + var(--pop));
     margin-bottom: 28px;
   }
-  .hero-lines::after { display: none; }
   .hero3-headline { font-size: clamp(30px, 9vw, 48px); margin-bottom: 28px; }
 }
 
