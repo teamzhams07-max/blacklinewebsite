@@ -90,6 +90,12 @@ export default function Footer() {
             <a href={`tel:${contact.phones[0].replace(/\s/g, '')}`} style={{ fontFamily: 'var(--font-display)', fontSize: 20, fontWeight: 600, color: 'var(--text)' }}>
               {contact.phones[0]}
             </a>
+            <a
+              href={`mailto:${contact.email}`}
+              style={{ display: 'block', marginTop: 8, fontSize: 14, color: 'var(--muted)', wordBreak: 'break-all' }}
+            >
+              {contact.email}
+            </a>
           </div>
         </div>
 
